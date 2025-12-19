@@ -40,7 +40,11 @@ class Customer(models.Model):
     birth_date =models.DateField(blank=True,null=True)
     membership = models.CharField(max_length=1,choices=MEMBERSHIP_CHOICES , default=MEMBERSHIP_BRONZE)
 
-
+    class Meta:
+        db_table = 'store_customers'
+        indexes = [
+            models.Index(fields=['last_name','first_name'])
+        ]
         
 class Order(models.Model):
 
@@ -57,14 +61,12 @@ class Order(models.Model):
     payment_status = models.CharField(max_length=1,choices=PAYMENT_STATUS,default=STATUS_PENDING)
     customer = models.ForeignKey(Customer,on_delete=models.PROTECT) # One To Many RelationShip
 
-
 class Address(models.Model):
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE) # One To Many RelationShip
     zip = models.CharField(max_length=15)
-
-
+    
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,on_delete=models.PROTECT) # One To Many RelationShip
     product = models.ForeignKey(Product,on_delete=models.PROTECT) # One To Many RelationShip
