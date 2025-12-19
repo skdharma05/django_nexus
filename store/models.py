@@ -22,6 +22,7 @@ class Product(models.Model): #  database
     promotions = models.ManyToManyField(Promotion) # Many To Many RelationShip
 
 
+
 class Customer(models.Model):
     MEMBERSHIP_BRONZE ='B'
     MEMBERSHIP_SILVER ='S'
