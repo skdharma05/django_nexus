@@ -86,8 +86,12 @@ WSGI_APPLICATION = 'storefront.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'my_project',
+        'HOST':'172.29.240.1',
+        'USER':'appuser',
+        'PASSWORD':'StrongPassword123!',
+        'PORT':'3306',
     }
 }
 
