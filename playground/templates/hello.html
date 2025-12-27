@@ -1,3 +1,18 @@
+<!-- <html>
+    <body>
+        {% if name %}
+        <h1>Hello from {{name}} </h1>
+        {% else %}
+        <h1>Hello from django</h1>
+        {% endif %}  
+        <ul>
+            {% for order in orders %}
+            <li>{{order.id}} -{{order.customer.first_name}}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html> -->
+
 <html>
     <body>
         {% if name %}
@@ -5,5 +20,6 @@
         {% else %}
         <h1>Hello from django</h1>
         {% endif %}  
+        {{result}}
     </body>
 </html>
