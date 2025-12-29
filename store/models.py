@@ -10,6 +10,13 @@ class Collection(models.Model):
     title = models.CharField(max_length=255)
     featured_product = models.ForeignKey('Product',on_delete=models.SET_NULL, null=True,related_name='+')
 
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['title']
+
+
 class Product(models.Model): #  database
     title = models.CharField(max_length=255) # this will create a table called Product and colum called title = varchar(255)
     slug = models.SlugField()
@@ -21,6 +28,11 @@ class Product(models.Model): #  database
     collection = models.ForeignKey(Collection,on_delete=models.PROTECT) # One To Many RelationShip
     promotions = models.ManyToManyField(Promotion) # Many To Many RelationShip
 
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['title']
 
 
 class Customer(models.Model):
@@ -41,7 +53,12 @@ class Customer(models.Model):
     birth_date =models.DateField(blank=True,null=True)
     membership = models.CharField(max_length=1,choices=MEMBERSHIP_CHOICES , default=MEMBERSHIP_BRONZE)
 
-        
+    def __str__(self):
+        return f'{self.first_name}{self.last_name}'
+    
+    class Meta:
+        ordering = ['first_name','last_name']
+
 class Order(models.Model):
 
     STATUS_PENDING ='P'
