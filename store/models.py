@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 # 'Many To Many' RelationShip
 
 class Promotion(models.Model):
@@ -20,10 +21,15 @@ class Collection(models.Model):
 class Product(models.Model): #  database
     title = models.CharField(max_length=255) # this will create a table called Product and colum called title = varchar(255)
     slug = models.SlugField()
-    description = models.TextField() # why we choose Textfield insted of charfield because textField doesnt need max length.
+    description = models.TextField(blank=True) # why we choose Textfield insted of charfield because textField doesnt need max length.
     #9999.99
-    unit_price = models.DecimalField(max_digits=6,decimal_places=2)
-    inventory = models.IntegerField()
+    unit_price = models.DecimalField(
+        max_digits=6, # Adding Data Validation
+        decimal_places=2,
+        validators=[MinValueValidator(1,message="Ensure the value is greater than or equal to 1")])
+    inventory = models.IntegerField(
+        validators=[MinValueValidator(1,message="The minimum stock requird greater than or equal to 1  ")] # Adding Data Validation
+        )
     last_update = models.DateField(auto_now=True)
     collection = models.ForeignKey(Collection,on_delete=models.PROTECT) # One To Many RelationShip
     promotions = models.ManyToManyField(Promotion) # Many To Many RelationShip
