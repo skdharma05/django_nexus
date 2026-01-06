@@ -31,7 +31,7 @@ class Product(models.Model): #  database
         validators=[MinValueValidator(1,message="The minimum stock requird greater than or equal to 1  ")] # Adding Data Validation
         )
     last_update = models.DateField(auto_now=True)
-    collection = models.ForeignKey(Collection,on_delete=models.PROTECT) # One To Many RelationShip
+    collection = models.ForeignKey(Collection,on_delete=models.PROTECT,related_name='products') # One To Many RelationShip
     promotions = models.ManyToManyField(Promotion) # Many To Many RelationShip
 
     def __str__(self):
@@ -88,7 +88,7 @@ class Address(models.Model):
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,on_delete=models.PROTECT) # One To Many RelationShip
-    product = models.ForeignKey(Product,on_delete=models.PROTECT) # One To Many RelationShip
+    product = models.ForeignKey(Product,on_delete=models.PROTECT,related_name='orderitems') # One To Many RelationShip
     quantity = models.PositiveIntegerField()
     unit_price = models.DecimalField(max_digits=6,decimal_places=2)
 
